@@ -1,0 +1,413 @@
+﻿<Window x:Class="Addev_Profom_Estimator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:metro="http://schemas.codeplex.com/elysium"
+        xmlns:params="http://schemas.codeplex.com/elysium/params"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
+        params:Manager.Theme="Light"
+        params:Manager.AccentBrush="{x:Static metro:AccentBrushes.Blue}"
+        params:Manager.ContrastBrush="White"
+        Background="{DynamicResource BackgroundBrush}"
+        Title="Addev Profom Estimator" Height="1000" Width="1600" WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded">
+
+    <DockPanel  LastChildFill="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" Margin="10,10,22,21" Width="NaN" Height="NaN" x:Name="dockPanel1">
+
+        <Label x:Name="User" DockPanel.Dock="Bottom" Content="User:" BorderBrush="#FF017BCD"/>
+
+        <Menu DockPanel.Dock="Top" IsMainMenu="True"  Foreground="Black" >
+            <MenuItem Header="_File">
+                <MenuItem Header="_New">
+                    <MenuItem.Icon >
+                        <Image Source = "Ressources/icons8-add-file-96.png" Stretch="Uniform" HorizontalAlignment="Center" Height="16" Margin="3" VerticalAlignment="Center" Width="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="_Open"  x:Name="Open" Click="Open_Click" >
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-documents-folder-96.png" HorizontalAlignment="Center" Height="16" Margin="3" VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="_Save" Command="ApplicationCommands.Save">
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-save-96.png" HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="_Save as" Command="ApplicationCommands.SaveAs">
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-save-as-96.png" HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="_Exit" x:Name="Exit" Click="Exit_Click">
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-exit-96.png" HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Copy" Command="ApplicationCommands.Copy">
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-copy-96.png"  HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Cut" Command="ApplicationCommands.Cut" >
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-cut-96.png"  HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Paste"  Command="ApplicationCommands.Paste">
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-paste-96.png"  HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Tools">
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-hammer-96.png"  HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="_Calendar"  IsCheckable="True" IsChecked="True" >
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-calendar-96.png" HorizontalAlignment="Center" Height="16" Margin="3" VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Data"  IsCheckable="True" IsChecked="True">
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-database-view-96.png" HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Settings" Command ="ApplicationCommands.Properties" >
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-settings-96.png"  HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About">
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-about-96.png"  HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Help guide" >
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-help-96.png"  HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="_More" >
+                    <MenuItem.Icon>
+                        <Image Source = "Ressources/icons8-more-96.png"  HorizontalAlignment="Center" Height="16" Margin="3"  VerticalAlignment="Center" Width="16"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+
+
+        <DockPanel MaxWidth="150" MinWidth="150" >
+
+            <syncfusion:CalendarEdit  DockPanel.Dock="Top" VerticalAlignment="Top" Width="Auto" WeekNumberForeground="#FF017BCD" TodayCellSelectedBackground="#FF017BCD" TodayCellSelectedBorderBrush="#FF017BFA" MouseOverBackground="#FF017BCD" MouseOverBorderBrush="#FF017BCD" SelectedDayCellHoverBackground="#FF017BCD" SelectionBorderBrush="#FF017BCD" SelectedDayCellBackground="#FF017DCD" SelectedDayCellBorderBrush="#FF017BCD" NotCurrentMonthForeground="Black" TodayCellBackground="Black" TodayCellBorderBrush="Black">
+                <syncfusion:CalendarEdit.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA3AEB9" Offset="0"/>
+                        <GradientStop Color="#FF627685" Offset="1"/>
+                        <GradientStop Color="#FF017BCD" Offset="0.474"/>
+                    </LinearGradientBrush>
+                </syncfusion:CalendarEdit.BorderBrush>
+            </syncfusion:CalendarEdit>
+            <ListView x:Name="ListViewDataSheet" DockPanel.Dock="Top" VerticalAlignment="Top"  IsSynchronizedWithCurrentItem="True" Height="362" BorderBrush="#FF017BCD" Initialized="ListViewDataSheet_Initialized" SelectionChanged="ListViewDataSheet_SelectionChanged">
+                <ListView.View>
+                    <GridView  AllowsColumnReorder="False">
+                        <GridViewColumn Header="Current Quotes" Width="Auto"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <TreeView xmlns:local="clr-namespace:Addev_Profom_Estimator" x:Name="treeView" Focusable="True" Initialized="TreeView_Initialized" BorderBrush="#FF017BCD" SelectedItemChanged="TreeView_SelectedItemChanged" >
+                <TreeView.Resources>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <TextBlock Text="{Binding}" Margin="5,0" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TreeView.Resources>
+            </TreeView>
+
+
+
+        </DockPanel>
+
+        <Grid DockPanel.Dock="Right">
+            <DockPanel Height="Auto" Name="stackPanel1" Width="Auto" LastChildFill="True" MaxWidth ="600" MinWidth="300">
+                <WebBrowser x:Name="webGoogleMapsAPI" DockPanel.Dock ="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Initialized="WebGoogleMapsAPI_Initialized" Height="307" OpacityMask="White" />
+                <TabControl GotFocus="TabControl_GotFocus" >
+                    <TabItem x:Name="cusTab" Header="Customer">
+                        <Grid  Background="#FFE5E5E5">
+                            <ListView x:Name="ListViewCustomers" IsSynchronizedWithCurrentItem="True" Initialized="ListViewCustomers_Initialized" BorderBrush="#FF017BCD">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ID" Width="Auto" DisplayMemberBinding="{Binding CustomerID}"/>
+                                        <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding CustomerName}"/>
+                                        <GridViewColumn Header="Address" Width="Auto" DisplayMemberBinding="{Binding CustomerAddress}"/>
+                                        <GridViewColumn Header="Contact" Width="Auto" DisplayMemberBinding="{Binding CustomerContact}"/>
+                                        <GridViewColumn Header="Email" Width="Auto" DisplayMemberBinding="{Binding CustomerEmail}"/>
+                                        <GridViewColumn Header="Sector" Width="Auto" DisplayMemberBinding="{Binding CustomerSector}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="matTab" Header="Material">
+                        <Grid Background="#FFE5E5E5">
+                            <ListView x:Name="ListViewMaterials" Initialized="ListViewMaterials_Initialized">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Item ID" Width="Auto" DisplayMemberBinding="{Binding MaterialID}"/>
+                                        <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding MaterialName}"/>
+                                        <GridViewColumn Header="Thickness" Width="Auto" DisplayMemberBinding="{Binding MaterialThickness}"/>
+                                        <GridViewColumn Header="Width" Width="Auto" DisplayMemberBinding="{Binding MaterialWidth}"/>
+                                        <GridViewColumn Header="Length" Width="Auto" DisplayMemberBinding="{Binding MaterialLength}"/>
+                                        <GridViewColumn Header="Supplier" Width="Auto" DisplayMemberBinding="{Binding MaterialSupplier}"/>
+                                        <GridViewColumn Header="Price" Width="Auto" DisplayMemberBinding="{Binding MaterialPrice}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="adTab" Header="Adhesive">
+                        <Grid Background="#FFE5E5E5">
+                            <ListView x:Name="ListViewAdhesive" Initialized="ListViewAdhesive_Initialized">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Item ID" Width="Auto" DisplayMemberBinding="{Binding AdhesiveID}"/>
+                                        <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding AdhesiveName}"/>
+                                        <GridViewColumn Header="Width" Width="Auto" DisplayMemberBinding="{Binding AdhesiveWidth}"/>
+                                        <GridViewColumn Header="Length" Width="Auto" DisplayMemberBinding="{Binding AdhesiveLength}"/>
+                                        <GridViewColumn Header="Supplier" Width="Auto" DisplayMemberBinding="{Binding AdhesiveSupplier}"/>
+                                        <GridViewColumn Header="Price" Width="Auto" DisplayMemberBinding="{Binding AdhesivePrice}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                        </Grid>
+                    </TabItem>
+
+                </TabControl>
+            </DockPanel>
+        </Grid>
+
+        <Grid Width="400">
+            <DockPanel Height="Auto" Name="stackPanel2" Width="Auto" LastChildFill="True" Background="#FF017BCD">
+
+                <TabControl x:Name="userLogin" DockPanel.Dock="Top" VerticalAlignment="Top" Height="718" Background="White" >
+                    <TabItem x:Name="UserTab" Header="User">
+
+                        <Grid>
+                            <Button x:Name="NewQuote" DockPanel.Dock="Top" Content =" New Quote" BorderBrush="{x:Null}" Click="NewQuote_Click" Height="99" VerticalAlignment="Top" HorizontalAlignment="Left" Width="92" Margin="127,194,0,0">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="Ressources\icons8-add-file-96.png" />
+                                </Button.Background>
+                            </Button>
+                        </Grid>
+
+                    </TabItem>
+
+                    <TabItem x:Name="customerTab" Header="Customer" IsEnabled="False">
+                        <Grid >
+                            <ComboBox x:Name ="comboboxCustomer" VerticalAlignment="Top" Height="30" Margin="43,39,0,0" BorderBrush="Black" OpacityMask="Black" HorizontalAlignment="Left" Width="322" Initialized="ComboboxCustomer_Initialized" SelectionChanged="ComboboxCustomer_SelectionChanged" IsEditable="True" >
+                                <ComboBox.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                        <GradientStop Color="White" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </ComboBox.Background>
+                            </ComboBox>
+                            <Label Content="Customer Name:" HorizontalAlignment="Left" Margin="43,11,0,0" VerticalAlignment="Top" Height="26" Width="109"/>
+                            <Label Content="Address:" HorizontalAlignment="Left" Margin="43,79,0,0" VerticalAlignment="Top" Height="27" Width="60"/>
+                            <TextBox x:Name="addressText" HorizontalAlignment="Left" Height="86" Margin="43,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322" TextChanged="AddressText_TextChanged" AcceptsReturn="True"/>
+                            <Label Content="Matricule:" HorizontalAlignment="Left" Margin="43,208,0,0" VerticalAlignment="Top" Height="27" Width="69"/>
+                            <TextBox x:Name="matriculeText" HorizontalAlignment="Left" Height="27" Margin="43,238,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322" TextChanged="MatriculeText_TextChanged" />
+                            <Label Content="Contact Name:" HorizontalAlignment="Left" Margin="43,280,0,0" VerticalAlignment="Top" Height="27" Width="99"/>
+                            <TextBox x:Name="contactNameText" HorizontalAlignment="Left" Height="27" Margin="43,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322" TextChanged="ContactNameText_TextChanged"/>
+                            <ComboBox x:Name="combobox_sales_rep" Height="30" VerticalAlignment="Top" Margin="45,458,0,0" BorderBrush="Black" OpacityMask="Black" HorizontalAlignment="Left" Width="321" Initialized="Combobox_sales_rep_Initialized" SelectionChanged="Combobox_sales_rep_SelectionChanged" IsEditable="True">
+                                <ComboBox.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                        <GradientStop Color="White" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </ComboBox.Background>
+                            </ComboBox>
+                            <Label Content="Sales Representative:" HorizontalAlignment="Left" Margin="43,428,0,0" VerticalAlignment="Top" Height="27" Width="130"/>
+                            <Label Content="Email:" HorizontalAlignment="Left" Margin="43,348,0,0" VerticalAlignment="Top" Height="28" Width="45"/>
+                            <TextBox x:Name="emailText" HorizontalAlignment="Left" Height="28" Margin="43,377,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322" TextChanged="EmailText_TextChanged"/>
+                            <Label Content="Sector:" HorizontalAlignment="Left" Margin="43,511,0,0" VerticalAlignment="Top" Height="28" Width="51"/>
+                            <TextBox x:Name="sectorText" HorizontalAlignment="Left" Height="27" Margin="43,541,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322" TextChanged="SectorText_TextChanged"/>
+                            <Button x:Name="cancelNewQuote" Content="Cancel" HorizontalAlignment="Left" Margin="182,579,0,0" VerticalAlignment="Top" Width="97" Click="CancelNewQuote_Click" Height="33"/>
+                            <Button x:Name="CustomerToMaterial" Content="Next &gt;" HorizontalAlignment="Left" Margin="284,579,0,-6" VerticalAlignment="Top" Width="98" Click="CustomerToMaterial_Click" Height="33"/>
+                            <Button x:Name ="delete_allCustomers" Content="Delete All" HorizontalAlignment="Left" Margin="43,578,0,-5" VerticalAlignment="Top" Width="98" Click="Delete_allCustomers_Click" Height="33" />
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="materialTab" Header="Material" IsEnabled="False" BorderBrush="Black" Background="#FFECECEC">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Content="Metric" HorizontalAlignment="Left" Margin="117,22,0,0" VerticalAlignment="Top"/>
+                            <CheckBox Content="Imperial" HorizontalAlignment="Left" Margin="37,21,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Material Name:" HorizontalAlignment="Left" Margin="35,80,0,0" VerticalAlignment="Top"/>
+                            <Button x:Name="PreviousMaterialToCustomer" Content="&lt; Previous" HorizontalAlignment="Left" Margin="205,424,0,0" VerticalAlignment="Top" Width="89" Click="PreviousMaterialToCustomer_Click"/>
+                            <Button x:Name="MaterialToAdhesiveTab" Content="Next &gt;" HorizontalAlignment="Left" Margin="303,424,0,0" VerticalAlignment="Top" Width="80" Click="MaterialToAdhesiveTab_Click"/>
+                            <Label Content="Width:" HorizontalAlignment="Left" Margin="35,256,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="materialWidth" Content="..." Margin="108,256,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="209"/>
+                            <Label Content="Lenght:" HorizontalAlignment="Left" Margin="35,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="materialLength" Content="..." Margin="109,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="210"/>
+                            <Label Content="Thickness:" HorizontalAlignment="Left" Margin="35,226,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="materialThickness" Content="..." Margin="108,225,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="211"/>
+                            <Label Content="Price:" HorizontalAlignment="Left" Margin="35,351,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.513,0.538"/>
+                            <Label x:Name="materialPrice" Content="..." HorizontalAlignment="Left" Margin="110,352,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" Width="211" Height="23"/>
+                            <Label Content="Supplier:" HorizontalAlignment="Left" Margin="35,317,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="materialSupplier" Content="..." Margin="110,318,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="204" Height="27" FontSize="10"/>
+                            <Label Content="Item Code:" HorizontalAlignment="Left" Margin="35,161,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="materialItemCode" Content="..." Margin="109,160,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="209"/>
+                            <Label Content="Item Name:" HorizontalAlignment="Left" Margin="35,195,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="materialName" Content="..." Margin="108,194,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="211"/>
+                            <Label Content="Number of Material:" HorizontalAlignment="Left" Margin="35,539,0,-69" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="materialQty" Content="..." Margin="157,539,-8,-70" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="204" Height="27" />
+                            <Label Content="Date:" HorizontalAlignment="Left" Margin="35,598,0,-128" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="todaysdate" Content="..." Margin="95,599,0,-130" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="204" Height="27" Initialized="Todaysdate_Initialized"/>
+                            <Label Content="Number of Adhesive:" HorizontalAlignment="Left" Margin="35,570,0,-100" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="adhesiveQty" Content="..." Margin="157,570,-8,-101" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="204" Height="27" />
+                            <Label Content="Number of Customer:" HorizontalAlignment="Left" Margin="35,508,0,-38" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="customerQty" Content="..." Margin="164,508,-15,-39" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="204" Height="27" />
+                            <ComboBox x:Name="comboMaterial" Height="30" VerticalAlignment="Top" Margin="30,110,0,0" BorderBrush="Black" OpacityMask="Black" HorizontalAlignment="Left" Width="275" Initialized="ComboMaterial_Initialized" SelectionChanged="ComboMaterial_SelectionChanged"  IsEditable="True">
+                                <ComboBox.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                        <GradientStop Color="White" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </ComboBox.Background>
+                            </ComboBox>
+
+                        </Grid>
+
+                    </TabItem>
+                    <TabItem x:Name="adhesiveTab" Header="Adhesive" IsEnabled="False">
+                        <Grid>
+                            <ComboBox x:Name="comboAdhesive" Height="30" VerticalAlignment="Top" Margin="30,110,0,0" BorderBrush="Black" OpacityMask="Black" HorizontalAlignment="Left" Width="275" Initialized="ComboAdhesive_Initialized" SelectionChanged="ComboAdhesive_SelectionChanged"  IsEditable="True">
+                                <ComboBox.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                        <GradientStop Color="White" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </ComboBox.Background>
+                            </ComboBox>
+                            <Label Content="Adhesive:" HorizontalAlignment="Left" Margin="35,80,0,0" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="adhesiveYesNo" Content="No" HorizontalAlignment="Left" Margin="128,41,0,0" VerticalAlignment="Top" Initialized="AdhesiveYesNo_Initialized"/>
+                            <Label Content="Add adhesive ?:" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Width:" HorizontalAlignment="Left" Margin="35,224,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="adhesiveWidth" Content="..." Margin="102,224,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="209"/>
+                            <Label Content="Lenght:" HorizontalAlignment="Left" Margin="35,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="adhesiveLength" Content="..." Margin="102,254,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="210"/>
+                            <Label Content="Price:" HorizontalAlignment="Left" Margin="35,319,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.513,0.538"/>
+                            <Label x:Name="adhesivePrice" Content="..." HorizontalAlignment="Left" Margin="102,320,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" Width="211" Height="23"/>
+                            <Label Content="Supplier:" HorizontalAlignment="Left" Margin="35,285,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="adhesiveSupplier" Content="..." Margin="103,286,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="204" Height="27" FontSize="10"/>
+                            <Label Content="Item Code:" HorizontalAlignment="Left" Margin="35,159,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="adhesiveItemCode" Content="..." Margin="103,158,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538" HorizontalAlignment="Left" Width="209"/>
+                            <Label Content="Item Name:" HorizontalAlignment="Left" Margin="35,193,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,0.538"/>
+                            <Label x:Name="adhesiveName" Content="..." Margin="102,192,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="211"/>
+                            <Button x:Name="PreviousAdhesiveToMaterial" Content="&lt; Previous" HorizontalAlignment="Left" Margin="147,458,0,0" VerticalAlignment="Top" Width="76" Click="PreviousAdhesiveToMaterial_Click"/>
+                            <Button x:Name="AdhesiveProductTab" Content="Next &gt;" HorizontalAlignment="Left" Margin="233,458,0,0" VerticalAlignment="Top" Width="76" Click="AdhesiveProductTab_Click"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem x:Name="productTab" Header="Product" IsEnabled="False">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="151*"/>
+                                <ColumnDefinition Width="60*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox x:Name="comboProduct" Height="30" VerticalAlignment="Top" Margin="53,42,0,0" BorderBrush="Black" OpacityMask="Black" HorizontalAlignment="Left" Width="275" IsEditable="True" Initialized="ComboProduct_Initialized" SelectionChanged="ComboProduct_SelectionChanged" Grid.ColumnSpan="2">
+                                <ComboBox.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                        <GradientStop Color="White" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </ComboBox.Background>
+                            </ComboBox>
+                            <Label Content="Product:" HorizontalAlignment="Left" Margin="53,12,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Width:" HorizontalAlignment="Left" Margin="53,74,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Length:" HorizontalAlignment="Left" Margin="53,119,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Thickness:" HorizontalAlignment="Left" Margin="54,159,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="customerWidth" HorizontalAlignment="Left" Height="22" Margin="113,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" Grid.ColumnSpan="2"/>
+                            <Label Content="Quantity:" HorizontalAlignment="Left" Margin="54,198,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Notes:" HorizontalAlignment="Left" Margin="57,247,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="customerNotes" HorizontalAlignment="Left" Height="77" Margin="113,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" Grid.ColumnSpan="2"/>
+                            <TextBox x:Name="customerQuantity" HorizontalAlignment="Left" Height="22" Margin="112,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" Grid.ColumnSpan="2"/>
+                            <Label Content="...." HorizontalAlignment="Left" Margin="116,117,0,0" VerticalAlignment="Top"/>
+                            <Label Content="...." HorizontalAlignment="Left" Margin="120,159,0,0" VerticalAlignment="Top"/>
+                            <Button x:Name="PreviousProductToAdhesive" Content="&lt; Previous" HorizontalAlignment="Left" Margin="182,556,0,0" VerticalAlignment="Top" Width="86" Click="PreviousProductToAdhesive_Click"/>
+                            <Button Content="Next &gt;" HorizontalAlignment="Left" Margin="5,556,0,0" VerticalAlignment="Top" Width="76" Grid.Column="1"/>
+                            <Button x:Name="CancelAll" Content="Cancel All" HorizontalAlignment="Left" Margin="22,556,0,0" VerticalAlignment="Top" Width="76" Click="CancelAll_Click"/>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
+
+            </DockPanel>
+
+
+        </Grid>
+
+        <Grid>
+            <StackPanel  Background="#FFEAEAEA">
+                <Label Content="Customer:" />
+                <Label x:Name="companyName" Content="..."/>
+                <Label x:Name="companyAddress" Content="..."/>
+                <Label x:Name="companyMatricule" Content="..." />
+                <Label x:Name="companyContact" Content="..." />
+                <Label x:Name="companyEmail" Content="..."/>
+                <Label x:Name="labelSales_Rep" Content="..." />
+                <Label x:Name="companySector" Content="..." />
+                
+                <Label Content="Material:" />
+                <Label x:Name="materialWidth1" Content="..." />
+                <Label x:Name="materialLength1" Content="..." />
+                <Label x:Name="materialThickness1" Content="..." />
+                <Label x:Name="materialPrice1" Content="..." />
+                <Label x:Name="materialSupplier1" Content="..." />
+                <Label x:Name="materialItemCode1" Content="..." />
+                <Label x:Name="materialName1" Content="..."/>
+
+
+                <Label Content="Adhesive:"/>
+                <Label x:Name="adhesiveWidth1" Content="..." />
+                <Label x:Name="adhesiveLength1" Content="..." />
+                <Label x:Name="adhesivePrice1" Content="..." />
+                <Label x:Name="adhesiveSupplier1" Content="..."/>
+                <Label x:Name="adhesiveItemCode1" Content="..." />
+                <Label x:Name="adhesiveName1" Content="..." />
+                <Label Content="Results:" />
+
+            </StackPanel>
+        </Grid>
+        
+
+
+
+
+    </DockPanel>
+
+
+</Window>

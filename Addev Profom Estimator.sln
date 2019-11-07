@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Addev Profom Estimator", "Addev Profom Estimator.csproj", "{7485467A-4246-4BBE-9714-C3C871CDECD4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7485467A-4246-4BBE-9714-C3C871CDECD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7485467A-4246-4BBE-9714-C3C871CDECD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7485467A-4246-4BBE-9714-C3C871CDECD4}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{7485467A-4246-4BBE-9714-C3C871CDECD4}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60058877-CDBA-453C-8357-E2E09851B972}
+	EndGlobalSection
+EndGlobal
