@@ -1,61 +1,47 @@
-﻿using System.Threading.Tasks;
+using System;
+using System.CodeDom.Compiler;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Addev_Profom_Estimator
 {
-    /// <summary>
-    /// Logique d'interaction pour App.xaml
-    /// </summary>
-    public partial class App : Application
+  public class App : Application
+  {
+    private bool _contentLoaded;
+
+    private void StartupHandler(object sender, StartupEventArgs e)
     {
-        private void StartupHandler(object sender, System.Windows.StartupEventArgs e)
-        {
-            Elysium.Manager.Apply(this, Elysium.Theme.Dark, Elysium.AccentBrushes.Blue, Elysium.AccentBrushes.Lime);
-        }
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            Mouse.OverrideCursor = Cursors.Wait;
-            try
-            {
-                base.OnStartup(e);
-
-                //initialize the splash screen and set it as the application main window
-                var splashScreen = new SplashScreenWindow();
-                SplashScreenWindow mainWindow = splashScreen;
-                splashScreen.Show();
-
-                //in order to ensure the UI stays responsive, we need to
-                //do the work on a different thread
-                Task.Factory.StartNew(() =>
-                {
-                    //simulate some work being done
-                    System.Threading.Thread.Sleep(4000);
-
-                    //since we're not on the UI thread
-                    //once we're done we need to use the Dispatcher
-                    //to create and show the main window
-                    this.Dispatcher.Invoke(() =>
-                        {
-                            //initialize the main window, set it as the application main window
-                            //and close the splash screen
-
-                            var loginWindow = new UserLogin();
-                            loginWindow.Show();
-
-                            splashScreen.Close();
-
-
-                        });
-                });
-
-            } // perform task
-
-            finally
-            {
-                Mouse.OverrideCursor = null;
-            }
-        }
     }
-}
+
+    protected virtual void OnStartup(StartupEventArgs e)
+    {
+      Mouse.set_OverrideCursor(Cursors.get_Wait());
+      try
+      {
+        Application.get_Current().add_DispatcherUnhandledException(new DispatcherUnhandledExceptionEventHandler(this.Current_DispatcherUnhandledException));
+        this.add_DispatcherUnhandledException(new DispatcherUnhandledExceptionEventHandler(this.App_DispatcherUnhandledException));
+        AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(this.CurrentDomain_UnhandledException);
+        base.OnStartup(e);
+        SplashScreenWindow splashScreen = new SplashScreenWindow();
+        SplashScreenWindow splashScreenWindow = splashScreen;
+        splashScreen.Show();
+        Task.Factory.StartNew((Action) (() =>
+        {
+          Thread.Sleep(4000);
+          ((DispatcherObject) this).Dispatcher.Invoke((Action) (() =>
+          {
+            new UserLogin().Show();
+            splashScreen.Close();
+          }));
+        }));
+      }
+      finally
+      {
+        Mouse.set_OverrideCursor((Cursor) null);
+      }
+    }
